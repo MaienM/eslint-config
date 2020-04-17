@@ -1,0 +1,40 @@
+{
+  "name": "@maienm/eslint-config",
+  "version": "1.0.0",
+  "description": "My personal code style with associated configs and documentation.",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaienM/eslint-config.git"
+  },
+  "keywords": [
+    "eslint"
+  ],
+  "scripts": {
+    "dump": "eslint --config src/index.js --print-config - > dump.json",
+    "test": "eslint --config src/index.js src/index.js",
+    "run": "eslint --config src/index.js"
+  },
+  "author": "Michon van Dooren",
+  "license": "MIT",
+  "homepage": "https://github.com/MaienM/eslint-config",
+  "dependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "18.1.0",
+    "eslint-extends-callbacks": "1.3.0",
+    "eslint-plugin-eslint-comments": "3.1.2",
+    "eslint-plugin-filenames": "1.3.2",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-jsdoc": "23.0.0",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "eslint-plugin-unicorn": "18.0.1"
+  },
+  "devDependencies": {
+    "eslint-import-resolver-webpack": "^0.12.1",
+    "webpack": "^4.42.1"
+  }
+}
