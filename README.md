@@ -1,11 +1,3 @@
-<style type="text/css">
-	.header-anchor {
-		font-size: 60%;
-		vertical-align: middle;
-		padding-top: 2px;
-	}
-</style>
-
 # ESLint Config
 
 This is my personal ESLint config, describing the code style I use for my personal projects. This style is based on the popular [airbnb](https://github.com/airbnb/javascript) code style, with some additions and tweaks.
@@ -30,7 +22,7 @@ Then make your `.eslintrc.json` extend from this config:
 
 ## Deviations from airbnb
 
-### Group shorthand properties <a name="airbnb-grouped-shorthand" href="#airbnb-grouped-shorthand" class="header-anchor">`airbnb-grouped-shorthand`</a>
+### Group shorthand properties <a name="airbnb-grouped-shorthand" href="#airbnb-grouped-shorthand" style="font-size: 60%;">`airbnb-grouped-shorthand`</a>
 
 This rule overrides [airbnb](https://github.com/airbnb/javascript#objects--grouped-shorthand).
 
@@ -38,7 +30,7 @@ It is not required to group shorthand properties at the beginning of your object
 
 > Why? Because sometimes it makes sense to group things together in a certain way, and this meaning of the variable is more important than the way it is defined.
 
-### Multiline comments <a name="airbnb-comments-multiline" href="#airbnb-comments-multiline" class="header-anchor">`airbnb-comments-multiline`</a>
+### Multiline comments <a name="airbnb-comments-multiline" href="#airbnb-comments-multiline" style="font-size: 60%;">`airbnb-comments-multiline`</a>
 
 This rule overrides [airbnb](https://github.com/airbnb/javascript#comments--multiline).
 
@@ -46,7 +38,7 @@ Use multiline comments (`/** ... */`) only for JSDoc comments. Use single-line c
 
 > Why? Because there is no need for multiline comments outside of JSDoc if you [don't wrap text](#maienm-dont-wrap-text).
 
-### Indents <a name="airbnb-indent" href="#airbnb-indent" class="header-anchor">`airbnb-indent`</a>
+### Indents <a name="airbnb-indent" href="#airbnb-indent" style="font-size: 60%;">`airbnb-indent`</a>
 
 This rule overrides [airbnb](https://github.com/airbnb/javascript#whitespace--spaces).
 
@@ -54,7 +46,7 @@ Use hard tabs (`\t`). For line length purposes, these will count as 4 characters
 
 > Why? Enables each developer to use the indentation width of their own preference.
 
-### Max line length <a name="airbnb-max-len" href="#airbnb-max-len" class="header-anchor">`airbnb-max-len`</a>
+### Max line length <a name="airbnb-max-len" href="#airbnb-max-len" style="font-size: 60%;">`airbnb-max-len`</a>
 
 This rule overrides [airbnb](https://github.com/airbnb/javascript#whitespace--max-len).
 
@@ -62,7 +54,7 @@ Set the max line length to 120. Tabs will be counted as 4 characters. Comments, 
 
 > Why? Avoiding long lines aids readability. 100 is somewhat low, 120 works fine, and still allows two side-by-side files in most cases.
 
-### Allow using UPPERCASE_VARIABLES for non-exports <a name="airbnb-shout-case" href="#airbnb-shout-case" class="header-anchor">`airbnb-shout-case`</a>
+### Allow using UPPERCASE_VARIABLES for non-exports <a name="airbnb-shout-case" href="#airbnb-shout-case" style="font-size: 60%;">`airbnb-shout-case`</a>
 
 This rule overrides [airbnb](https://github.com/airbnb/javascript#naming--uppercase).
 
@@ -77,13 +69,13 @@ The other points outlines in the airbnb guide stand, so:
 
 ## Additional rules
 
-### Don't wrap text <a name="maienm-dont-wrap-text" href="#maienm-dont-wrap-text" class="header-anchor">`maienm-dont-wrap-text`</a>
+### Don't wrap text <a name="maienm-dont-wrap-text" href="#maienm-dont-wrap-text" style="font-size: 60%;">`maienm-dont-wrap-text`</a>
 
 Don't wrap comments and markdown text at the max line length, but let your editor soft-wrap this.
 
 > Why? People are (generally) better a wrapping code in a readable manner than most editors, but the same cannot be said for text. Hard-wrapping text has the same result as letting the editor handle this, with the downside of having to reflow the paragraph if you change it, and more messy diffs.
 
-### Empty lines <a name="maienm-empty-lines" href="#maienm-empty-lines" class="header-anchor">`maienm-empty-lines`</a>
+### Empty lines <a name="maienm-empty-lines" href="#maienm-empty-lines" style="font-size: 60%;">`maienm-empty-lines`</a>
 
 Don't allow multiple empty lines in a row.
 
@@ -116,7 +108,7 @@ const anotherThing = hello
 	.thing();
 ```
 
-### Require JSDoc <a name="maienm-require-jsdoc" href="#maienm-require-jsdoc" class="header-anchor">`maienm-require-jsdoc`</a>
+### Require JSDoc <a name="maienm-require-jsdoc" href="#maienm-require-jsdoc" style="font-size: 60%;">`maienm-require-jsdoc`</a>
 
 All non-anonymous functions need to have a JSDoc comment describing their purpose, parameters and return value.
 
@@ -124,7 +116,7 @@ See the [JSDoc guidelines](docs/jsdoc.md) for more details on how to write docs.
 
 > Why? Because reading a comment is easier than reading code. Additionally, the JSDoc describes the intent, while the code only describes the behavior. Knowing the intent can be useful when a function is misbehaving or when something is being refactored.
 
-### Comments format <a name="maienm-comment-format" href="#maienm-comment-format" class="header-anchor">`maienm-comment-format`</a>
+### Comments format <a name="maienm-comment-format" href="#maienm-comment-format" style="font-size: 60%;">`maienm-comment-format`</a>
 
 A comment should be a proper sentence, starting with a capital letter, and ending with punctuation.
 
@@ -141,7 +133,7 @@ A comment should be a proper sentence, starting with a capital letter, and endin
 // This is a comment. This is another comment.
 ```
 
-### Import order <a name="maienm-import-order" href="#maienm-import-order" class="header-anchor">`maienm-import-order`</a>
+### Import order <a name="maienm-import-order" href="#maienm-import-order" style="font-size: 60%;">`maienm-import-order`</a>
 
 These rules come from a fork of [eslint-plugin-import](https://github.com/MaienM/eslint-plugin-import).
 
