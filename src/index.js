@@ -23,12 +23,12 @@ module.exports = extendsCallbacks({
 
 		// #airbnb-indent
 		'no-tabs': 'off',
-		indent: (severity, indentStyle, ...rest) => [severity, 'tab', ...rest],
-		'react/jsx-indent': (severity, indentStyle, ...rest) => [severity, 'tab', ...rest],
-		'react/jsx-indent-props': (severity, indentStyle, ...rest) => [severity, 'tab', ...rest],
+		indent: (severity, _indentStyle, ...rest) => [severity, 'tab', ...rest],
+		'react/jsx-indent': (severity, _indentStyle, ...rest) => [severity, 'tab', ...rest],
+		'react/jsx-indent-props': (severity, _indentStyle, ...rest) => [severity, 'tab', ...rest],
 
 		// #airbnb-max-len
-		'max-len': (severity, length, tabSize, options, ...rest) => [
+		'max-len': (severity, _length, _tabSize, options, ...rest) => [
 			severity,
 			120,
 			4,
@@ -83,6 +83,27 @@ module.exports = extendsCallbacks({
 		}],
 
 		/**
+		 * React rules.
+		 */
+
+		// #maienm-react-callback-names
+		'react/jsx-handler-names': 'warn',
+
+		// #maienm-react-conditional-jsx
+		'react/jsx-wrap-multilines': ['warn', {
+			declaration: 'parens-new-line',
+			assignment: 'parens-new-line',
+			return: 'parens-new-line',
+			arrow: 'parens-new-line',
+			condition: 'parens-new-line',
+			logical: 'parens-new-line',
+			prop: 'parens-new-line',
+		}],
+
+		// #maienm-react-destructure-state
+		'react/destructuring-assignment': ['warn', 'always'],
+
+		/**
 		 * Stuff that isn't mentioned in the README.
 		 *
 		 * There are a few possible reasons for this:
@@ -113,6 +134,36 @@ module.exports = extendsCallbacks({
 		'unicorn/filename-case': 'off',
 		'unicorn/no-abusive-eslint-disable': 'off',
 	},
+	overrides: [
+		// Most rules should be consistent between React and non-React code, but there are exceptions.
+		{
+			files: ['**/*.jsx'],
+			rules: {
+				// #maienm-react-jsdoc
+				'require-jsdoc-except/require-jsdoc': ['warn', {
+					require: {
+						ArrowFunctionExpression: true,
+						ClassDeclaration: true,
+						FunctionDeclaration: true,
+						FunctionExpression: true,
+						MethodDefinition: true,
+					},
+					ignore: [
+						'constructor',
+						'render',
+						'componentDidCatch',
+						'componentDidMount',
+						'componentDidUpdate',
+						'componentWillUnmount',
+						'getDerivedStateFromError',
+						'getDerivedStateFromProps',
+						'getSnapshotBeforeUpdate',
+						'shouldComponentUpdate',
+					],
+				}],
+			},
+		},
+	],
 	settings: {
 		jsdoc: {
 			tagNamePreference: {

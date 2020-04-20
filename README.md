@@ -164,3 +164,97 @@ import GrandParent from '../../GrandParent';
 import Parent from '../Parent';
 import Sibling from './Sibling';
 ```
+
+## React
+
+### Callback and handler names <a name="maienm-react-callback-names" href="#maienm-react-callback-names" style="font-size: 60%;">`maienm-react-callback-names`</a>
+
+Enforce consistent names for callbacks in props (`on*`) and in methods that are passed as props to other components (`handle*`).
+
+> Why? By using these conventions you signal your intent clearly.
+
+### Conditional JSX <a name="maienm-react-conditional-jsx" href="#maienm-react-conditional-jsx" style="font-size: 60%;">`maienm-react-conditional-jsx`</a>
+
+Conditional JSX should be similar to normal JSX in style. That is, multiline components in parenthesis and on their own
+lines. Use ternary only if both branches are used, and use `&&` otherwise, making sure to cast truthy values to
+booleans.
+
+> Why? The regular JSX style is chosen for readability, and there's no reason for conditional JSX to be different.
+ 
+``` javascript
+const doRender = truthyValue;
+
+// bad
+const a = (
+	<div>
+		{doRender ? <span
+			class="text"
+		/> : null}
+	</div>
+)
+
+// good
+const b = (
+	<div>
+		{!!doRender && <span class="text" />}
+	</div>
+)
+
+// also good, if the inner component needs to be multiline
+const c = (
+	<div>
+		{!!doRender && (
+			<div>
+				<span>Here be dragons.</span>
+			</div>
+		)}
+	</div>
+)
+
+// also good, if there's something for both branches
+const d = (
+	<div>
+		{doRender ? (
+			<span>Here be dragons.</span>
+		) : (
+			<span class="dead-dragons">Here used to be dragons, long ago.</span>
+		)}
+	</div>
+)
+```
+
+### JSDoc in React <a name="maienm-react-jsdoc" href="#maienm-react-jsdoc" style="font-size: 60%;">`maienm-react-jsdoc`</a>
+
+These are additions to the regular [JSDoc require rules](#maienm-require-jsdoc).
+
+#### PropTypes
+
+The propTypes are an important part of the interface of a component, and should therefore be documented. This means that all propTypes should have a JSDoc block. For all built-in types the type is clear and can be skipped, for custom types/validators it should be specified.
+
+#### Not all methods are created equally
+
+In general, JSDoc is required for _all_ methods. There are some methods in React components that this is not particularly valuable for, mostly because the purpose of the method is clear (and documented by React), and the actions it performs in detail are an irrelevant implementation detail, leaving little to comment on. For these the documentation requirement is lifted.
+
+- Subclasses of `React.Component`
+	- `constructor`
+	- `render`
+	- `componentDidCatch`
+	- `componentDidMount`
+	- `componentDidUpdate`
+	- `componentWillUnmount`
+	- `getDerivedStateFromError`
+	- `getDerivedStateFromProps`
+	- `getSnapshotBeforeUpdate`
+	- `shouldComponentUpdate`
+
+NOTE: The `UNSAFE_*` methods are not in the list above, and this is intentional. These should be avoided, but if they are needed anyway for some reason this should _definitely_ be documented.
+
+> Why? Because if there's nothing useful to say about a method, just don't say anything.
+
+### Destructure state <a name="maienm-react-destructure-state" href="#maienm-react-destructure-state" style="font-size: 60%;">`maienm-react-destructure-state`</a>
+
+Always destructure `context`, `props`, and `state` at the start of methods in which these are used, in that order.
+
+> Why? To avoid the verbosity and useless repetition of `this.context`, `this.props` and `this.state`, and to make it immediately clear what data is used in a method.
+```
+
