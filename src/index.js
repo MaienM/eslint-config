@@ -130,14 +130,22 @@ module.exports = extendsCallbacks({
 		// Unnecessary eslint-disable comments should just be cleaned up.
 		'eslint-comments/no-unused-disable': 'warn',
 
-		// These are already handled by other plugins
+		// These are already handled by other plugins.
 		'unicorn/filename-case': 'off',
 		'unicorn/no-abusive-eslint-disable': 'off',
+
+		// Typescript compatibility.
+		'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
+		'import/extensions': (severity, _type, options) => [severity, _type, {
+			...options,
+			ts: 'never',
+			tsx: 'never',
+		}],
 	},
 	overrides: [
-		// Most rules should be consistent between React and non-React code, but there are exceptions.
+		// Overrides for React.
 		{
-			files: ['**/*.jsx'],
+			files: ['**/*.jsx', '**/*.tsx'],
 			rules: {
 				// #maienm-react-jsdoc
 				'require-jsdoc-except/require-jsdoc': ['warn', {
@@ -163,6 +171,16 @@ module.exports = extendsCallbacks({
 				}],
 			},
 		},
+		// Overrides for Typescript.
+		{
+			files: ['**/*.ts', '**/*.tsx'],
+			rules: {
+				// TypeScript is already specific about the types, no need to repeat this.
+				'jsdoc/require-param-type': 'off',
+				'jsdoc/require-property-type': 'off',
+				'jsdoc/require-returns-type': 'off',
+			},
+		},
 	],
 	settings: {
 		jsdoc: {
@@ -174,5 +192,23 @@ module.exports = extendsCallbacks({
 				package: 'access package',
 			},
 		},
+		'import/resolver': {
+			node: {
+				extensions: [
+					'.js',
+					'.jsx',
+					'.json',
+					'.ts',
+					'.tsx',
+				],
+			},
+		},
+		'import/extensions': [
+			'.js',
+			'.mjs',
+			'.jsx',
+			'.ts',
+			'.tsx',
+		],
 	},
 });
