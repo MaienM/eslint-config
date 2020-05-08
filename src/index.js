@@ -76,7 +76,10 @@ module.exports = extendsCallbacks({
 			},
 		}],
 		'jsdoc/require-description-complete-sentence': 'warn',
-		'jsdoc/require-description': 'warn',
+		'jsdoc/require-description': ['warn', {
+			checkGetters: false,
+			checkSetters: false,
+		}],
 		'jsdoc/require-hyphen-before-param-description': ['warn', 'never'],
 		'jsdoc/require-jsdoc': ['warn', {
 			require: {
@@ -173,8 +176,10 @@ module.exports = extendsCallbacks({
 						'getDerivedStateFromProps',
 						'getSnapshotBeforeUpdate',
 						'shouldComponentUpdate',
+						'/^handle.*/',
 					],
 				}],
+				'jsdoc/require-returns': 'off',
 			},
 		},
 		// Overrides for Typescript.
