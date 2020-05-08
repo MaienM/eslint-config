@@ -7,12 +7,18 @@ module.exports = extendsCallbacks({
 		'plugin:jsdoc/recommended',
 		'airbnb',
 		'plugin:eslint-comments/recommended',
+		'plugin:chai-expect/recommended',
+		'plugin:chai-friendly/recommended',
 	],
 	plugins: [
+		'chai-expect',
+		'chai-friendly',
 		'eslint-comments',
 		'filenames',
 		'jsdoc',
+		'mocha',
 		'promise',
+		'require-jsdoc-except',
 		'unicorn',
 	],
 	// The comments starting with # refer to the anchor in the documentation. Searching for the text after the # should yield the description/rationale/examples for the rule.
@@ -179,6 +185,38 @@ module.exports = extendsCallbacks({
 				'jsdoc/require-param-type': 'off',
 				'jsdoc/require-property-type': 'off',
 				'jsdoc/require-returns-type': 'off',
+			},
+		},
+		// Overrides for Mocha & Chai.
+		{
+			files: ['test/**/*.ts', 'test/**/*.js', '**/*.spec.ts', '**/*.spec.js'],
+			rules: {
+				// Mocha uses `this` for context, so regular functions are recommended.
+				'prefer-arrow-callback': 'off',
+				'mocha/prefer-arrow-callback': 'error',
+				'func-names': 'off',
+				'no-invalid-this': 'off',
+
+				// These are useful during development, but they should not be committed.
+				'mocha/no-exclusive-tests': 'error',
+				'mocha/no-skipped-tests': 'error',
+
+				// Most reporters assume the descriptions follow a specific format, and sticking to this improves the
+				// readability of the output.
+				'mocha/valid-test-description': [
+					'warn',
+					'^should .*[^.]$',
+				],
+
+				// Prevent incorrect or confusing code.
+				'mocha/handle-done-callback': 'error',
+				'mocha/no-global-tests': 'warn',
+				'mocha/no-identical-title': 'warn',
+				'mocha/no-mocha-arrows': 'error',
+				'mocha/no-nested-tests': 'error',
+				'mocha/no-return-and-callback': 'error',
+				'mocha/no-setup-in-describe': 'error',
+				'mocha/no-sibling-hooks': 'warn',
 			},
 		},
 	],
