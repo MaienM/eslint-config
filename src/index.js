@@ -1,18 +1,27 @@
 const extendsCallbacks = require('eslint-extends-callbacks');
 
+let typescript = false;
+try {
+	require('typescript');
+	typescript = true;
+} catch {
+}
+
 module.exports = extendsCallbacks({
 	parser: 'babel-eslint',
 	extends: [
 		'plugin:promise/recommended',
 		'plugin:jsdoc/recommended',
+		...(typescript ? [
+			'plugin:@typescript-eslint/eslint-recommended',
+			'plugin:@typescript-eslint/recommended',
+		] : []),
 		'airbnb',
 		'plugin:eslint-comments/recommended',
-		'plugin:chai-expect/recommended',
-		'plugin:chai-friendly/recommended',
 	],
 	plugins: [
+		...(typescript ? ['@typescript-eslint'] : []),
 		'chai-expect',
-		'chai-friendly',
 		'eslint-comments',
 		'filenames',
 		'jsdoc',
@@ -44,6 +53,8 @@ module.exports = extendsCallbacks({
 			},
 			...rest,
 		],
+
+		'no-else-return': 'off',
 
 		/**
 		 * Additional rules.
@@ -145,11 +156,21 @@ module.exports = extendsCallbacks({
 
 		// Typescript compatibility.
 		'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
-		'import/extensions': (severity, _type, options) => [severity, _type, {
+		'import/extensions': (severity, type_, options) => [severity, type_, {
 			...options,
 			ts: 'never',
 			tsx: 'never',
 		}],
+
+		// It might be desireable to mention arguments that are part of an implememented interface, even if they are not
+		// used in that specific implementation.
+		'@typescript-eslint/no-unused-vars': ['error', {
+			vars: 'all',
+			args: 'after-used',
+			argsIgnorePattern: '^_',
+			ignoreRestSublings: true,
+		}],
+		'no-underscore-dangle': 'off',
 	},
 	overrides: [
 		// Overrides for React.
@@ -167,6 +188,7 @@ module.exports = extendsCallbacks({
 					},
 					ignore: [
 						'constructor',
+						// Well-known React methods.
 						'render',
 						'componentDidCatch',
 						'componentDidMount',
@@ -176,25 +198,42 @@ module.exports = extendsCallbacks({
 						'getDerivedStateFromProps',
 						'getSnapshotBeforeUpdate',
 						'shouldComponentUpdate',
+						// Callback handlers. Sometimes useful, sometimes not.
 						'/^handle.*/',
+						// Material-ui styling.
+						'styles',
 					],
 				}],
+				'jsdoc/require-jsdoc': 'off',
+
 				'jsdoc/require-returns': 'off',
 			},
 		},
 		// Overrides for Typescript.
 		{
+			parser: '@typescript-eslint/parser',
 			files: ['**/*.ts', '**/*.tsx'],
 			rules: {
 				// TypeScript is already specific about the types, no need to repeat this.
 				'jsdoc/require-param-type': 'off',
 				'jsdoc/require-property-type': 'off',
 				'jsdoc/require-returns-type': 'off',
+
+				// The base eslint rule complains about optional chaining, so use the typescript one.
+				'no-unused-expressions': 'off',
+				'@typescript-eslint/no-unused-expressions': ['warn', {
+					allowShortCircuit: false,
+					allowTernary: false,
+					allowTaggedTemplates: false,
+				}],
 			},
 		},
 		// Overrides for Mocha & Chai.
 		{
 			files: ['test/**/*.ts', 'test/**/*.js', '**/*.spec.ts', '**/*.spec.js'],
+			extends: [
+				'plugin:chai-expect/recommended',
+			],
 			rules: {
 				// Mocha uses `this` for context, so regular functions are recommended.
 				'prefer-arrow-callback': 'off',
@@ -222,6 +261,31 @@ module.exports = extendsCallbacks({
 				'mocha/no-return-and-callback': 'error',
 				'mocha/no-setup-in-describe': 'error',
 				'mocha/no-sibling-hooks': 'warn',
+
+				// Chai likes using expressions that auto-evaluate, which this rule does not like.
+				'no-unused-expressions': 'off',
+				'@typescript-eslint/no-unused-expressions': 'off',
+
+				// I don't _really_ care about documenting everything in the tests.
+				'lines-between-class-members': 'off',
+				'jsdoc/require-description': 'off',
+				'jsdoc/require-description-complete-sentence': 'off',
+				'jsdoc/require-example': 'off',
+				'jsdoc/require-file-overview': 'off',
+				'jsdoc/require-hyphen-before-param-description': 'off',
+				'jsdoc/require-jsdoc': 'off',
+				'jsdoc/require-param': 'off',
+				'jsdoc/require-param-description': 'off',
+				'jsdoc/require-param-name': 'off',
+				'jsdoc/require-param-type': 'off',
+				'jsdoc/require-property': 'off',
+				'jsdoc/require-property-description': 'off',
+				'jsdoc/require-property-name': 'off',
+				'jsdoc/require-property-type': 'off',
+				'jsdoc/require-returns': 'off',
+				'jsdoc/require-returns-check': 'off',
+				'jsdoc/require-returns-description': 'off',
+				'jsdoc/require-returns-type': 'off',
 			},
 		},
 	],
