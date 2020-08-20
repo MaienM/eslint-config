@@ -1,12 +1,16 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const extendsCallbacks = require('eslint-extends-callbacks');
 
 let typescript = false;
 try {
+	// eslint-disable-next-line global-require, import/no-extraneous-dependencies
 	require('typescript');
 	typescript = true;
 } catch {
+	// Typescript not present, so don't setup rules for it.
 }
 
+/* eslint-disable jsdoc/require-jsdoc */
 module.exports = extendsCallbacks({
 	parser: 'babel-eslint',
 	extends: [
@@ -168,7 +172,7 @@ module.exports = extendsCallbacks({
 			vars: 'all',
 			args: 'after-used',
 			argsIgnorePattern: '^_',
-			ignoreRestSublings: true,
+			ignoreRestSiblings: true,
 		}],
 		'no-underscore-dangle': 'off',
 	},
@@ -319,3 +323,4 @@ module.exports = extendsCallbacks({
 		],
 	},
 });
+/* eslint-enable jsdoc/require-jsdoc */
