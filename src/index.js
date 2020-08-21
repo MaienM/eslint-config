@@ -10,6 +10,13 @@ try {
 	// Typescript not present, so don't setup rules for it.
 }
 
+const TEST_PATTERNS = [
+	'**/test/**/*.ts',
+	'**/test/**/*.js',
+	'**/*.spec.ts',
+	'**/*.spec.js',
+];
+
 /* eslint-disable jsdoc/require-jsdoc */
 module.exports = extendsCallbacks({
 	parser: 'babel-eslint',
@@ -175,6 +182,12 @@ module.exports = extendsCallbacks({
 			ignoreRestSiblings: true,
 		}],
 		'no-underscore-dangle': 'off',
+
+		// Additional test paths.
+		'import/no-extraneous-dependencies': (severity, options) => [severity, {
+			...options,
+			devDependencies: [...options.devDependencies, ...TEST_PATTERNS],
+		}],
 	},
 	overrides: [
 		// Overrides for React.
@@ -234,7 +247,7 @@ module.exports = extendsCallbacks({
 		},
 		// Overrides for Mocha & Chai.
 		{
-			files: ['test/**/*.ts', 'test/**/*.js', '**/*.spec.ts', '**/*.spec.js'],
+			files: TEST_PATTERNS,
 			extends: [
 				'plugin:chai-expect/recommended',
 			],
