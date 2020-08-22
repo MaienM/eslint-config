@@ -251,6 +251,9 @@ module.exports = extendsCallbacks({
 			extends: [
 				'plugin:chai-expect/recommended',
 			],
+			env: {
+				mocha: true,
+			},
 			rules: {
 				// Mocha uses `this` for context, so regular functions are recommended.
 				'prefer-arrow-callback': 'off',
