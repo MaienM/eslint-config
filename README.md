@@ -110,11 +110,11 @@ const anotherThing = hello
 
 ### Require JSDoc <a name="maienm-require-jsdoc" href="#maienm-require-jsdoc" style="font-size: 60%;">`maienm-require-jsdoc`</a>
 
-All non-anonymous functions need to have a JSDoc comment describing their purpose, parameters and return value.
+All functions that are part of the public API of a module/class need to have a JSDoc comment describing their purpose. All parameters and the return value should also be clear, either through `@params`/`@returns` or through clear naming.
 
-See the [JSDoc guidelines](docs/jsdoc.md) for more details on how to write docs.
+JSDoc comments for private/non-exported functions are optional.
 
-> Why? Because reading a comment is easier than reading code. Additionally, the JSDoc describes the intent, while the code only describes the behavior. Knowing the intent can be useful when a function is misbehaving or when something is being refactored.
+> Why? It should be easy to see what a function does and how to use it when calling it. On the other hand there is also no need to explicitly "document" things that are already clear from the context, which can be the case for parameters and return values.
 
 ### Comments format <a name="maienm-comment-format" href="#maienm-comment-format" style="font-size: 60%;">`maienm-comment-format`</a>
 

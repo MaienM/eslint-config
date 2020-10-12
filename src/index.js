@@ -17,7 +17,6 @@ const TEST_PATTERNS = [
 	'**/*.spec.js',
 ];
 
-/* eslint-disable jsdoc/require-jsdoc */
 module.exports = extendsCallbacks({
 	parser: 'babel-eslint',
 	extends: [
@@ -104,6 +103,8 @@ module.exports = extendsCallbacks({
 		}],
 		'jsdoc/require-hyphen-before-param-description': ['warn', 'never'],
 		'jsdoc/require-jsdoc': ['warn', {
+			enableFixer: false,
+			publicOnly: true,
 			require: {
 				ArrowFunctionExpression: true,
 				ClassDeclaration: true,
@@ -112,6 +113,8 @@ module.exports = extendsCallbacks({
 				MethodDefinition: true,
 			},
 		}],
+		'jsdoc/require-param': 'off',
+		'jsdoc/require-returns': 'off',
 
 		/**
 		 * React rules.
@@ -196,6 +199,8 @@ module.exports = extendsCallbacks({
 			rules: {
 				// #maienm-react-jsdoc
 				'require-jsdoc-except/require-jsdoc': ['warn', {
+					enableFixer: false,
+					publicOnly: true,
 					require: {
 						ArrowFunctionExpression: true,
 						ClassDeclaration: true,
@@ -343,4 +348,3 @@ module.exports = extendsCallbacks({
 		],
 	},
 });
-/* eslint-enable jsdoc/require-jsdoc */
