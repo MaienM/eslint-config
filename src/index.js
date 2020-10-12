@@ -222,15 +222,13 @@ module.exports = extendsCallbacks({
 					],
 				}],
 				'jsdoc/require-jsdoc': 'off',
-
-				'jsdoc/require-returns': 'off',
 			},
 		},
 		// Overrides for Typescript.
 		{
 			parser: '@typescript-eslint/parser',
 			files: ['**/*.ts', '**/*.tsx'],
-			rules: {
+			rules: (rules) => ({
 				// TypeScript is already specific about the types, no need to repeat this.
 				'jsdoc/require-param-type': 'off',
 				'jsdoc/require-property-type': 'off',
@@ -243,7 +241,13 @@ module.exports = extendsCallbacks({
 					allowTernary: false,
 					allowTaggedTemplates: false,
 				}],
-			},
+
+				// The core rules don't recognize parameter properties as useful.
+				'@typescript-eslint/no-useless-constructor': rules['no-useless-constructor'],
+				'no-useless-constructor': 'off',
+				'@typescript-eslint/no-empty-function': rules['no-empty-function'],
+				'no-empty-function': 'off',
+			}),
 		},
 		// Overrides for Mocha & Chai.
 		{

@@ -1298,10 +1298,10 @@ eslint-config-airbnb@18.2.0:
     object.assign "^4.1.0"
     object.entries "^1.1.2"
 
-eslint-extends-callbacks@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-extends-callbacks/-/eslint-extends-callbacks-1.4.0.tgz#2dc7962b02ca84a16f6bb72d5daca936df268f27"
-  integrity sha512-VCPHsYYN24JitPSR0tPba1iyFCCLF6/8Nm+zSL59VCK4oIeqp9Zm4in3Kxs31n4HciVzspvi82J61YLzGVqFhw==
+eslint-extends-callbacks@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-extends-callbacks/-/eslint-extends-callbacks-1.5.0.tgz#62643a169a1ed72e6b30d8a933f7250084582970"
+  integrity sha512-hdwIsQa9H/wCb5QWSFuFiuaBeING68euJtW6jOKkNhYocF6H1hDoPekOk6R1ysNTtcsKe37GvwatOlMrL38PaQ==
 
 eslint-import-resolver-node@^0.3.3:
   version "0.3.4"
