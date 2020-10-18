@@ -19,4 +19,5 @@ fi
 
 npm publish
 git tag "$version"
-git push --all
+git push
+git push --tags
