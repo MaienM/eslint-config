@@ -18,7 +18,6 @@ const TEST_PATTERNS = [
 ];
 
 module.exports = extendsCallbacks({
-	parser: 'babel-eslint',
 	extends: [
 		'plugin:promise/recommended',
 		'plugin:jsdoc/recommended',
@@ -37,7 +36,6 @@ module.exports = extendsCallbacks({
 		'jsdoc',
 		'mocha',
 		'promise',
-		'require-jsdoc-except',
 		'unicorn',
 	],
 	// The comments starting with # refer to the anchor in the documentation. Searching for the text after the # should yield the description/rationale/examples for the rule.
@@ -198,35 +196,38 @@ module.exports = extendsCallbacks({
 			files: ['**/*.jsx', '**/*.tsx'],
 			rules: {
 				// #maienm-react-jsdoc
-				'require-jsdoc-except/require-jsdoc': ['warn', {
+				'jsdoc/require-jsdoc': ['warn', {
 					enableFixer: false,
 					publicOnly: true,
 					require: {
 						ArrowFunctionExpression: true,
 						ClassDeclaration: true,
+						ClassExpression: true,
 						FunctionDeclaration: true,
 						FunctionExpression: true,
-						MethodDefinition: true,
+						MethodDefinition: false,
 					},
-					ignore: [
-						'constructor',
-						// Well-known React methods.
-						'render',
-						'componentDidCatch',
-						'componentDidMount',
-						'componentDidUpdate',
-						'componentWillUnmount',
-						'getDerivedStateFromError',
-						'getDerivedStateFromProps',
-						'getSnapshotBeforeUpdate',
-						'shouldComponentUpdate',
-						// Callback handlers. Sometimes useful, sometimes not.
-						'/^handle.*/',
-						// Material-ui styling.
-						'styles',
+					contexts: [
+						`MethodDefinition${
+							[
+								'constructor',
+								// Well-known React methods.
+								'render',
+								'componentDidCatch',
+								'componentDidMount',
+								'componentDidUpdate',
+								'componentWillUnmount',
+								'getDerivedStateFromError',
+								'getDerivedStateFromProps',
+								'getSnapshotBeforeUpdate',
+								'shouldComponentUpdate',
+								// Callback handlers. Sometimes useful, sometimes not.
+								'/^handle.*/',
+							].map((n) => `:not([key.name=${n}])`).join('')
+						}`,
 					],
 				}],
-				'jsdoc/require-jsdoc': 'off',
+				'': 'off',
 			},
 		},
 		// Overrides for Typescript.
