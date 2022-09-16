@@ -48,8 +48,6 @@ module.exports = extendsCallbacks({
 		// #airbnb-indent
 		'no-tabs': 'off',
 		indent: (severity, _indentStyle, ...rest) => [severity, 'tab', ...rest],
-		'react/jsx-indent': (severity, _indentStyle, ...rest) => [severity, 'tab', ...rest],
-		'react/jsx-indent-props': (severity, _indentStyle, ...rest) => [severity, 'tab', ...rest],
 
 		// #airbnb-max-len
 		'max-len': (severity, _length, _tabSize, options, ...rest) => [
@@ -116,27 +114,6 @@ module.exports = extendsCallbacks({
 		'jsdoc/require-returns': 'off',
 
 		/**
-		 * React rules.
-		 */
-
-		// #maienm-react-callback-names
-		'react/jsx-handler-names': 'warn',
-
-		// #maienm-react-conditional-jsx
-		'react/jsx-wrap-multilines': ['warn', {
-			declaration: 'parens-new-line',
-			assignment: 'parens-new-line',
-			return: 'parens-new-line',
-			arrow: 'parens-new-line',
-			condition: 'parens-new-line',
-			logical: 'parens-new-line',
-			prop: 'parens-new-line',
-		}],
-
-		// #maienm-react-destructure-state
-		'react/destructuring-assignment': ['warn', 'always'],
-
-		/**
 		 * Stuff that isn't mentioned in the README.
 		 *
 		 * There are a few possible reasons for this:
@@ -168,7 +145,6 @@ module.exports = extendsCallbacks({
 		'unicorn/no-abusive-eslint-disable': 'off',
 
 		// Typescript compatibility.
-		'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
 		'import/extensions': (severity, type_, options) => [severity, type_, {
 			...options,
 			ts: 'never',
@@ -196,6 +172,26 @@ module.exports = extendsCallbacks({
 		{
 			files: ['**/*.jsx', '**/*.tsx'],
 			rules: {
+				'react/jsx-indent': (severity, _indentStyle, ...rest) => [severity, 'tab', ...rest],
+				'react/jsx-indent-props': (severity, _indentStyle, ...rest) => [severity, 'tab', ...rest],
+
+				// #maienm-react-callback-names
+				'react/jsx-handler-names': 'warn',
+
+				// #maienm-react-conditional-jsx
+				'react/jsx-wrap-multilines': ['warn', {
+					declaration: 'parens-new-line',
+					assignment: 'parens-new-line',
+					return: 'parens-new-line',
+					arrow: 'parens-new-line',
+					condition: 'parens-new-line',
+					logical: 'parens-new-line',
+					prop: 'parens-new-line',
+				}],
+
+				// #maienm-react-destructure-state
+				'react/destructuring-assignment': ['warn', 'always'],
+
 				// #maienm-react-jsdoc
 				'jsdoc/require-jsdoc': ['warn', {
 					enableFixer: false,
@@ -229,6 +225,9 @@ module.exports = extendsCallbacks({
 					],
 				}],
 				'': 'off',
+
+				// Typescript compatibility.
+				'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
 			},
 		},
 		// Overrides for Typescript.
