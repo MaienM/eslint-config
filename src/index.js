@@ -24,7 +24,6 @@ module.exports = extendsCallbacks({
 		'plugin:promise/recommended',
 		'plugin:jsdoc/recommended',
 		...(typescript ? [
-			'plugin:@typescript-eslint/eslint-recommended',
 			'plugin:@typescript-eslint/recommended',
 		] : []),
 		'airbnb',
@@ -178,7 +177,7 @@ module.exports = extendsCallbacks({
 
 		// It might be desireable to mention arguments that are part of an implememented interface, even if they are not
 		// used in that specific implementation.
-		'@typescript-eslint/no-unused-vars': ['error', {
+		'no-unused-vars': ['error', {
 			vars: 'all',
 			args: 'after-used',
 			argsIgnorePattern: '^_',
@@ -235,7 +234,13 @@ module.exports = extendsCallbacks({
 		// Overrides for Typescript.
 		{
 			parser: '@typescript-eslint/parser',
+			parserOptions: {
+				project: ['./tsconfig.json'],
+			},
 			files: ['**/*.ts', '**/*.tsx'],
+			extends: [
+				'plugin:@typescript-eslint/recommended-requiring-type-checking',
+			],
 			rules: (rules) => ({
 				// TypeScript is already specific about the types, no need to repeat this.
 				'jsdoc/require-param-type': 'off',
@@ -250,11 +255,35 @@ module.exports = extendsCallbacks({
 					allowTaggedTemplates: false,
 				}],
 
-				// The core rules don't recognize parameter properties as useful.
+				// Better indent checking. Note that the indent rule of typescript-eslint is fundamentaly broken, so this might need tweaking/ignoring from time to time. See https://github.com/typescript-eslint/typescript-eslint/issues/1824
+				'@typescript-eslint/indent': [
+					rules.indent[0],
+					'tab',
+					{
+						...rules.indent[2],
+						ignoredNodes: [
+							...(rules.indent[2].ignoredNodes || []),
+							// Properties with decorators should be indented less than this rule thinks.
+							'FunctionExpression > .params[decorators.length > 0]',
+							'FunctionExpression > .params > :matches(Decorator, :not(:first-child))',
+							'ClassBody.body > PropertyDefinition[decorators.length > 0] > .key',
+						],
+					},
+				],
+				indent: 'off',
+
+				// Use typescript-eslint versions of rules.
 				'@typescript-eslint/no-useless-constructor': rules['no-useless-constructor'],
 				'no-useless-constructor': 'off',
 				'@typescript-eslint/no-empty-function': rules['no-empty-function'],
 				'no-empty-function': 'off',
+				'@typescript-eslint/no-unused-vars': rules['no-unused-vars'],
+				'no-unused-vars': 'off',
+				'@typescript-eslint/no-shadow': rules['no-shadow'],
+				'no-shadow': 'off',
+
+				// Don't really see the point of this rule.
+				'@typescript-eslint/restrict-template-expressions': 'off',
 			}),
 		},
 		// Overrides for Mocha & Chai.
@@ -293,6 +322,9 @@ module.exports = extendsCallbacks({
 				'mocha/no-return-and-callback': 'error',
 				'mocha/no-setup-in-describe': 'error',
 				'mocha/no-sibling-hooks': 'warn',
+
+				// This throws when doing assertions on mocks in some cases.
+				'@typescript-eslint/unbound-method': 'off',
 
 				// Chai likes using expressions that auto-evaluate, which this rule does not like.
 				'no-unused-expressions': 'off',
