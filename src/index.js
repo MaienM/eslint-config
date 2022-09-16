@@ -13,6 +13,8 @@ try {
 const TEST_PATTERNS = [
 	'**/test/**/*.ts',
 	'**/test/**/*.js',
+	'**/benchmark/**/*.ts',
+	'**/benchmark/**/*.js',
 	'**/*.spec.ts',
 	'**/*.spec.js',
 ];
