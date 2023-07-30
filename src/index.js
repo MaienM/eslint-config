@@ -205,7 +205,7 @@ module.exports = extendsCallbacks({
 						MethodDefinition: false,
 					},
 					contexts: [
-						`MethodDefinition${
+						`MethodDefinition${(
 							[
 								'constructor',
 								// Well-known React methods.
@@ -221,7 +221,7 @@ module.exports = extendsCallbacks({
 								// Callback handlers. Sometimes useful, sometimes not.
 								'/^handle.*/',
 							].map((n) => `:not([key.name=${n}])`).join('')
-						}`,
+						)}`,
 					],
 				}],
 				'': 'off',
@@ -236,9 +236,16 @@ module.exports = extendsCallbacks({
 			parserOptions: {
 				project: ['./tsconfig.json'],
 			},
+			settings: {
+				'import/resolver': {
+					typescript: true,
+					node: true,
+				},
+			},
 			files: ['**/*.ts', '**/*.tsx'],
 			extends: [
 				'plugin:@typescript-eslint/recommended-requiring-type-checking',
+				'plugin:import/typescript',
 			],
 			rules: (rules) => ({
 				// TypeScript is already specific about the types, no need to repeat this.
