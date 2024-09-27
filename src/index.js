@@ -1,9 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const extendsCallbacks = require('eslint-extends-callbacks');
 
 let typescript = false;
 try {
-	// eslint-disable-next-line global-require, import/no-extraneous-dependencies
+	// eslint-disable-next-line global-require, import/no-extraneous-dependencies, @typescript-eslint/no-require-imports
 	require('typescript');
 	typescript = true;
 } catch {
