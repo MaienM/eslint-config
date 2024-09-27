@@ -27,12 +27,12 @@ module.exports = extendsCallbacks({
 			'plugin:@typescript-eslint/recommended',
 		] : []),
 		'airbnb',
-		'plugin:eslint-comments/recommended',
+		'plugin:@eslint-community/eslint-comments/recommended',
 	],
 	plugins: [
 		...(typescript ? ['@typescript-eslint'] : []),
 		'chai-expect',
-		'eslint-comments',
+		'@eslint-community/eslint-comments',
 		'filenames',
 		'jsdoc',
 		'mocha',
@@ -138,7 +138,7 @@ module.exports = extendsCallbacks({
 		'no-invalid-this': 'error',
 
 		// Unnecessary eslint-disable comments should just be cleaned up.
-		'eslint-comments/no-unused-disable': 'warn',
+		'@eslint-community/eslint-comments/no-unused-disable': 'warn',
 
 		// These are already handled by other plugins.
 		'unicorn/filename-case': 'off',
