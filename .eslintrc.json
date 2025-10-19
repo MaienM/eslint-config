@@ -1,3 +1,6 @@
 {
-	"extends": "./src/index.js"
+	"extends": "./src/index.js",
+	"rules": {
+		"@typescript-eslint/no-require-imports": "off"
+	}
 }

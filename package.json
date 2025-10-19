@@ -2,7 +2,11 @@
   "name": "@maienm/eslint-config",
   "version": "1.10.0",
   "description": "My personal code style with associated configs and documentation.",
-  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./base": "./src/base.js",
+    "./mocha": "./src/mocha.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MaienM/eslint-config.git"
@@ -12,7 +16,7 @@
   ],
   "scripts": {
     "dump": "eslint --config src/index.js --print-config - > dump.json",
-    "test": "eslint --config src/index.js src/index.js",
+    "test": "eslint src/index.js",
     "run": "eslint --config src/index.js"
   },
   "author": "Michon van Dooren",
