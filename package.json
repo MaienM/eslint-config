@@ -1,6 +1,6 @@
 {
   "name": "@maienm/eslint-config",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "My personal code style with associated configs and documentation.",
   "exports": {
     ".": "./src/index.js",
